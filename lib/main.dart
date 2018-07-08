@@ -8,6 +8,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter/services.dart';
 
+// Will get rid of these later
+
 final cardTitles = [
   "FALCON 1",
   "FALCON 9",
