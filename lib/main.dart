@@ -32,8 +32,6 @@ final rocketDetails = [
 ];
 
 void main() {
-  CacheManager.inBetweenCleans = new Duration(days: 2);
-  CacheManager.maxAgeCacheObject = new Duration(days: 2);
   getTheme().then((theme) {
     runApp(MyApp(defaultTheme: theme));
   });
@@ -81,7 +79,7 @@ class HomePage extends StatelessWidget {
                     if (index == 0) {
                       return new Padding(
                         padding: const EdgeInsets.only(top: 10.0, left: 20.0),
-                        child: new Text("Future Launches:",
+                        child: new Text("Future Launches",
                             style: Theme.of(context).textTheme.subhead),
                       );
                     } else if ((index - 1) < 4) {
@@ -90,7 +88,6 @@ class HomePage extends StatelessWidget {
                           new DateFormat.EEEE()
                               .add_MMMM()
                               .add_d()
-                              .add_y()
                               .add_Hm()
                               .format(new DateTime.fromMillisecondsSinceEpoch(
                                   jsonResponse[index - 1]["launch_date_unix"] *
@@ -98,8 +95,8 @@ class HomePage extends StatelessWidget {
                           context);
                     } else if ((index - 1) < 5) {
                       return new Padding(
-                        padding: const EdgeInsets.only(top: 10.0, left: 20.0),
-                        child: new Text("Rockets:",
+                        padding: const EdgeInsets.only(left: 20.0),
+                        child: new Text("Rockets",
                             style: Theme.of(context).textTheme.subhead),
                       );
                     } else {
@@ -212,8 +209,13 @@ Widget _buildLaunchCard(
       // height: 125.0,
       decoration: new BoxDecoration(
         color: Theme.of(context).secondaryHeaderColor,
-        borderRadius: BorderRadius.all(const Radius.circular(10.0)),
-        boxShadow: [new BoxShadow(color: Colors.black38, blurRadius: 3.0)],
+        borderRadius: BorderRadius.all(const Radius.circular(7.5)),
+        boxShadow: [
+          new BoxShadow(
+              offset: Offset(0.0, 2.0),
+              color: Colors.black.withOpacity(0.3),
+              blurRadius: 1.5)
+        ],
       ),
       child: new Padding(
         padding: const EdgeInsets.all(10.0),
@@ -257,8 +259,13 @@ Widget _buildExplorerCard(int index, BuildContext context) {
         // height: 125.0,
         decoration: new BoxDecoration(
           color: Theme.of(context).secondaryHeaderColor,
-          borderRadius: BorderRadius.all(const Radius.circular(10.0)),
-          boxShadow: [new BoxShadow(color: Colors.black38, blurRadius: 3.0)],
+          borderRadius: BorderRadius.all(const Radius.circular(7.5)),
+          boxShadow: [
+            new BoxShadow(
+                offset: Offset(0.0, 1.5),
+                color: Colors.black.withOpacity(0.3),
+                blurRadius: 1.5)
+          ],
         ),
         child: new Padding(
           padding: const EdgeInsets.all(10.0),
@@ -287,10 +294,7 @@ Widget _buildExplorerCard(int index, BuildContext context) {
                 child: new Container(
                   alignment: Alignment.centerRight,
                   child: _buildImageContainer(
-                    rocketAssets[index],
-                    100.0,
-                    70.0,
-                  ),
+                      rocketAssets[index], 100.0, 70.0, context),
                 ),
               ),
             ],
@@ -348,10 +352,7 @@ class RocketDetail extends StatelessWidget {
                                       .push(new FullScreenImage(imageAsset));
                                 },
                                 child: _buildImageContainer(
-                                  imageAsset,
-                                  390.5,
-                                  245.0,
-                                ),
+                                    imageAsset, 390.5, 245.0, context),
                               ),
                             ),
                           ),
@@ -419,7 +420,7 @@ class RocketDetail extends StatelessWidget {
             );
           }
         },
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }
@@ -453,15 +454,21 @@ Widget _buildRocketSpecs(
   );
 }
 
-Widget _buildImageContainer(String imageAsset, double height, double width) {
+Widget _buildImageContainer(
+    String imageAsset, double height, double width, BuildContext context) {
   return new Container(
     height: height,
     width: width,
     decoration: new BoxDecoration(
-        borderRadius: new BorderRadius.circular(16.0),
-        boxShadow: [new BoxShadow(color: Colors.black38, blurRadius: 5.0)]),
+        borderRadius: BorderRadius.all(const Radius.circular(12.0)),
+        boxShadow: [
+          new BoxShadow(
+              offset: Offset(0.0, 2.0),
+              color: Colors.black.withOpacity(0.3),
+              blurRadius: 1.5)
+        ]),
     child: ClipRRect(
-      borderRadius: new BorderRadius.circular(16.0),
+      borderRadius: new BorderRadius.circular(12.0),
       child: new Material(
         child: new Image.asset(
           imageAsset,
